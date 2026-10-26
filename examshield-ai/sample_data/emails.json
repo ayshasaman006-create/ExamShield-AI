@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Phishing + paper-leak scam",
+    "sender": "exam-support@examp0rtal.edu",
+    "reply_to": "helpdesk@mail-secure.xyz",
+    "subject": "URGENT: Verify your account to access question paper",
+    "body": "Your exam account is locked. Verify your account within 24 hours: http://192.168.44.12/login . We can also sell you the answer key with guaranteed pass - pay and get the solved paper. Short link: https://bit.ly/3xYz",
+    "attachments": "instructions.pdf.exe, paper.zip"
+  },
+  {
+    "label": "Legitimate notice",
+    "sender": "controller@university.edu",
+    "reply_to": "",
+    "subject": "Exam schedule update",
+    "body": "Dear students, the Semester 5 exam timetable has been updated on https://examportal.edu/schedule . Regards, Exam Cell.",
+    "attachments": ""
+  }
+]

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExamShield AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="rail">
+  <div class="brand">ExamShield AI<small>Examination security and threat detection</small></div>
+  <nav id="nav">
+    <button data-view="dashboard" class="active">Dashboard</button>
+    <button data-view="email">Email analysis</button>
+    <button data-view="activity">Activity logs</button>
+    <button data-view="trapdoor">Trapdoors</button>
+    <button data-view="cases">Cases and reports</button>
+  </nav>
+  <div class="rail-foot">
+    <span id="aiBadge" class="badge">AI: offline analyst</span>
+    <button id="resetBtn" class="link">Clear all data</button>
+  </div>
+</aside>
+
+<main>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Dashboard -->
+  <section id="view-dashboard" class="view active">
+    <header class="page-head"><h1>Security posture</h1>
+      <div class="actions"><button id="demoBtn" class="btn ghost">Load demo data</button>
+      <a class="btn" href="/api/report/overview">Download assessment PDF</a></div></header>
+    <div class="posture">
+      <div>
+        <div class="posture-score"><span id="pScore">0</span><span class="of">/100</span></div>
+        <div id="pLevel" class="lvl Low">Low</div>
+      </div>
+      <div class="meter" aria-hidden="true"><div class="segs"><i></i><i></i><i></i><i></i></div><div id="needle" class="needle"></div>
+        <div class="ticks"><span>Low</span><span>Medium</span><span>High</span><span>Critical</span></div></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Cases by risk level</h2><div id="dist" class="dist"></div>
+        <p class="muted" id="totals"></p></div>
+      <div class="panel"><h2>Strongest indicators</h2><ul id="topFind" class="plain"></ul></div>
+      <div class="panel"><h2>Recent cases</h2><div id="recentCases"></div></div>
+      <div class="panel"><h2>Recent trapdoor hits</h2><div id="recentHits"></div></div>
+    </div>
+  </section>
+
+  <!-- Email -->
+  <section id="view-email" class="view">
+    <header class="page-head"><h1>Email analysis</h1>
+      <div class="actions"><select id="emailSample"><option value="">Load a sample…</option></select></div></header>
+    <div class="grid2 top">
+      <form id="emailForm" class="panel form">
+        <label>Sender<input name="sender" placeholder="exam-support@examportal.edu"></label>
+        <label>Reply-To (optional)<input name="reply_to"></label>
+        <label>Subject<input name="subject"></label>
+        <label>Message body<textarea name="body" rows="9"></textarea></label>
+        <label>Attachments (comma separated)<input name="attachments" placeholder="notice.pdf, form.docm"></label>
+        <button class="btn" type="submit">Analyse email</button>
+      </form>
+      <div id="emailResult" class="result"><p class="empty">Paste an email or load a sample. Results appear here and are saved as a case.</p></div>
+    </div>
+  </section>
+
+  <!-- Activity -->
+  <section id="view-activity" class="view">
+    <header class="page-head"><h1>Security activity analysis</h1>
+      <div class="actions"><button id="logSample" class="btn ghost">Load sample log</button>
+      <label class="btn ghost filebtn">Upload CSV<input type="file" id="logFile" accept=".csv,.txt,.log" hidden></label></div></header>
+    <div class="grid2 top">
+      <form id="actForm" class="panel form">
+        <label>Exam activity log
+          <textarea id="logText" rows="16" spellcheck="false" placeholder="timestamp,user,ip,action,status&#10;2026-10-26T09:14:05,student21,10.0.0.5,login,failed"></textarea></label>
+        <p class="muted">Actions: login, view_question, submit_answer, tab_switch, copy_paste, fullscreen_exit, access_admin, download_paper.</p>
+        <button class="btn" type="submit">Analyse log</button>
+      </form>
+      <div id="actResult" class="result"><p class="empty">Paste log lines or upload a CSV to detect brute force, account sharing, privilege probing and cheating signals.</p></div>
+    </div>
+  </section>
+
+  <!-- Trapdoor -->
+  <section id="view-trapdoor" class="view">
+    <header class="page-head"><h1>Trapdoors</h1>
+      <div class="actions"><button id="refreshHits" class="btn ghost">Refresh</button></div></header>
+    <p class="lead">Decoy resources that no legitimate user ever opens. Any access is logged with IP, user agent and a canary ID, then scored.</p>
+    <div class="grid2 top">
+      <div class="panel"><h2>Test the decoys</h2>
+        <p class="muted">Each button requests a decoy URL the way an attacker or scanner would.</p>
+        <div id="decoyList"></div>
+        <button id="botBtn" class="btn ghost wide">Simulate a bot filling the hidden form field</button></div>
+      <div class="panel"><h2>Captured hits</h2><div id="hitList"></div></div>
+    </div>
+  </section>
+
+  <!-- Cases -->
+  <section id="view-cases" class="view">
+    <header class="page-head"><h1>Cases and reports</h1></header>
+    <div class="grid2 top">
+      <div class="panel"><div id="caseList"></div></div>
+      <div id="caseDetail" class="result"><p class="empty">Select a case to see its indicators, AI analysis and PDF report.</p></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
