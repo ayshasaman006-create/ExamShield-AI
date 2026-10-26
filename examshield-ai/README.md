@@ -72,3 +72,7 @@ AI-powered examination security and threat detection platform (working prototype
 ## Prototype limits
 
 SQLite, no user authentication, and Flask's dev server: fine for a demo, not for production. Do not expose it publicly as-is.
+
+
+## live demo
+https://examshield-ai-1-qg26.onrender.com
